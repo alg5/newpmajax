@@ -1,0 +1,6 @@
+
+newpmajax_controller:
+    path: /newpmajax/{action}/{forum}/{user}
+    defaults: { _controller: alg.newpmajax.newpmajax_handler:main }
+    requirements:
+        forum: \d+

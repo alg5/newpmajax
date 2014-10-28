@@ -1,0 +1,52 @@
+<script type="text/javascript" >
+//    var S_FORUM_ID = '{S_FORUM_ID}';
+//    var S_TOPIC_ID = '{S_TOPIC_ID}';
+//    var minChars_forum = '{MIN_CHARS_FORUM}';
+
+    var U_NEWPMAJAX_PATH = '{U_NEWPMAJAX_PATH}';
+//    var U_TOPIC_LS_PATH = '{U_TOPIC_LS_PATH}';
+//    var U_USER_LS_PATH  = '{U_USER_LS_PATH}';
+//    var U_USERTOPIC_LS_PATH = '{U_USERTOPIC_LS_PATH}';
+//    var U_USER_PM_LS_PATH = '{U_USER_PM_LS_PATH}';
+//    var U_MEMBERLIST_LS_PATH = '{U_MEMBERLIST_LS_PATH}';
+//    var U_UCP_LS_PATH = '{U_UCP_LS_PATH}';
+//   
+//   
+//    var U_FORUM_REDIRECT = '{U_FORUM_REDIRECT}';
+//    var U_TOPIC_REDIRECT = '{U_TOPIC_REDIRECT}';
+//    
+//    var minChars_topic = '{MIN_CHARS_TOPIC}';
+//    var minChars_user = '{MIN_CHARS_USER}';
+
+//    var maxItemsToShow_forum = '{MAX_ITEMS_TO_SHOW_FORUM}';
+//    var maxItemsToShow_topic = '{MAX_ITEMS_TO_SHOW_TOPIC}';
+//    var maxItemsToShow_user = '{MAX_ITEMS_TO_SHOW_USER}';
+
+//    var LIVE_SEARCH_SHOW_IN_NEW_WINDOW = '{LIVE_SEARCH_SHOW_IN_NEW_WINDOW}';
+//    var LIVE_SEARCH_EYE_BUTTON_OPEN_T = '{LIVE_SEARCH_EYE_BUTTON_OPEN_T}';
+//    var LIVE_SEARCH_EYE_BUTTON_CLOSE_T = '{LIVE_SEARCH_EYE_BUTTON_CLOSE_T}';
+
+</script>
+<script type="text/javascript" >
+    (function ($) {
+        if (typeof ($.noty) !== 'object') {
+            $.getScript('./ext/alg/newpmajax/styles/prosilver/template/jquery.noty.js', function () {
+                $.getScript('./ext/alg/newpmajax/styles/prosilver/template/default.js');
+                $.getScript('./ext/alg/newpmajax/styles/prosilver/template/topRight.js');
+            });
+        }
+        else {
+            if (typeof ($.noty.themes.defaultTheme) !== 'object') {
+                $.getScript('./ext/alg/newpmajax/styles/prosilver/template/default.js');
+            }
+            if (typeof ($.$.noty.layouts.topRight) !== 'object') {
+                $.getScript('./ext/alg/newpmajax/styles/prosilver/template/topRight.js');
+            }
+        }
+    })(jQuery);                                    // Avoid conflicts with other libraries
+
+</script>
+
+<!-- INCLUDEJS newpmajax.js -->
+
+ 

@@ -1,0 +1,30 @@
+services:
+    alg.newpmajax.listener:
+        class: alg\newpmajax\event\listener
+        arguments:
+            - @config
+            - @dbal.conn
+            - @auth
+            - @template
+            - @user
+            - %core.root_path%
+            - %core.php_ext%
+            - @request
+            - @service_container
+        tags:
+            - { name: event.listener }
+    alg.newpmajax.newpmajax_handler:
+        class: alg\newpmajax\controller\newpmajax_handler
+        arguments:
+            - @config
+            - @dbal.conn
+            - @auth
+            - @template
+            - @user
+            - @cache.driver
+            - %core.root_path%
+            - %core.php_ext%
+            - @request
+            - %core.table_prefix%
+            - @service_container
+            - @pagination

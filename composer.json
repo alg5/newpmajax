@@ -1,0 +1,34 @@
+{
+    "name": "alg/newpmajax",
+    "type": "phpbb-extension",
+    "description": "bla-bla",
+    "homepage": "http://www.phpbbguru.net",
+    "version": "1.0.0",
+    "time": "2014-07-10",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Алг",
+            "homepage": "http://www.chugunok.net",
+            "role": "Developer"
+        }
+       
+    ],
+    "require": {
+        "php": ">=5.3.3"
+    },
+	"require-dev": {
+      "phpbb/epv": "dev-master"
+   },
+    "extra": {
+        "display-name": "New Private Message With Ajax",
+		"soft-require": {
+           "phpbb/phpbb": "3.1.*@dev"
+        },
+        "version-check": {
+            "host": "alg5.github.io",
+            "directory": "/newpmajax",
+            "filename": "version.json"
+        }
+    }
+}
