@@ -1,4 +1,3 @@
-
 alg_newpmajax_controller:
     path: /newpmajax/{action}
     defaults: { _controller: alg.newpmajax.newpmajax_handler:main }
