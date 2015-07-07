@@ -1,7 +1,7 @@
 <?php
 /**
 *
-* @package liveSearch
+* @package newpmajax
 * @copyright (c) alg
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
@@ -39,12 +39,7 @@ class v_1_0_0 extends \phpbb\db\migration\migration
 			//  Remove old config
 			// Current version
 			array('config.add', array('newpmajax', '1.0.0')),
-
-	
-
-
-
-		);
+				);
 	}
 	public function revert_data()
 	{
@@ -53,8 +48,6 @@ class v_1_0_0 extends \phpbb\db\migration\migration
 
 			// Current version
 			array('config.remove', array('newpmajax')),
-
-		
 		);
 	}
 }

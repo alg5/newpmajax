@@ -1,10 +1,10 @@
 {
     "name": "alg/newpmajax",
     "type": "phpbb-extension",
-    "description": "bla-bla",
+    "description": "Extension makes it possible to add and remove recipients of PM without reloading the page",
     "homepage": "http://www.phpbbguru.net",
     "version": "1.0.0",
-    "time": "2014-07-10",
+    "time": "2015-07-07",
     "license": "GPL-2.0",
     "authors": [
         {

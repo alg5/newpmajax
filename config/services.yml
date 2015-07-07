@@ -2,15 +2,9 @@ services:
     alg.newpmajax.listener:
         class: alg\newpmajax\event\listener
         arguments:
-            - @config
-            - @dbal.conn
-            - @auth
             - @template
             - @user
             - %core.root_path%
-            - %core.php_ext%
-            - @request
-            - @service_container
         tags:
             - { name: event.listener }
     alg.newpmajax.newpmajax_handler:
