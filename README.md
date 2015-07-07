@@ -1,4 +1,4 @@
-liveSearch
+newpmajax
 ==========
 
-Live Search (as in Google)
+Extension makes it possible to add and remove recipients of PM without reloading the page
