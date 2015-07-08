@@ -203,7 +203,7 @@ class newpmajax_handler
 		{
 			$message .=  $this->user->lang['NO_AUTH_GROUP_MESSAGE'] . '<br />';
 			$group_list = array();
-		}        
+		}
 		if (sizeof($group_list))
 		{
 			$sql = 'SELECT g.group_id AS id, g.group_name AS name, g.group_colour AS colour, g.group_type
@@ -380,7 +380,7 @@ class newpmajax_handler
 
 		foreach($username_ary as $username)
 		{
-		  $user = $this->is_user_exists($username, $user_info);
+			$user = $this->is_user_exists($username, $user_info);
 			$user_id = $user ? $user['user_id'] : -1;
 			$user_type = $user ? $user['user_type'] : -1;
 			$user_allow_pm = $user ? $user['user_allow_pm'] : -1;
