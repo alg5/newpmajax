@@ -147,14 +147,14 @@ class newpmajax_handler
 								{
 									$username = $this->remove_user_from_user_list($row['user_id']);
 									$message .=  sprintf($this->user->lang['PMAJAX_USER_REMOVED_NO_PM'] . '<br />', $username);
-									
+
 								}
 								else
 								{
 									$username = $this->remove_user_from_user_list($row['user_id']);
 									$message .=  sprintf($this->user->lang['PMAJAX_USER_REMOVED_NO_PERMISSION'] . '<br />', $username);
 								}
-								$user_id_ary = array_diff($user_id_ary, array($row['user_id']));   //remove id for this user 
+								$user_id_ary = array_diff($user_id_ary, array($row['user_id']));   //remove id for this user
 							}
 							$this->db->sql_freeresult($result);
 					}//sizeof($user_id_ary))
@@ -169,7 +169,7 @@ class newpmajax_handler
 							foreach ($cannot_read_list as $cannot_read)
 							{
 								$username = $this->remove_user_from_user_list($cannot_read);
-								$user_id_ary = array_diff($user_id_ary, $cannot_read);   //remove id for this user 
+								$user_id_ary = array_diff($user_id_ary, $cannot_read);   //remove id for this user
 								$message .=  sprintf($this->user->lang['PMAJAX_USER_REMOVED_NO_PERMISSION'] . '<br />', $username);
 							}
 						}
@@ -183,7 +183,7 @@ class newpmajax_handler
 							foreach ($banned_user_list as $banned_user)
 							{
 								$username = $this->remove_user_from_user_list($banned_user);
-								$user_id_ary = array_diff($user_id_ary, $cannot_read);   //remove id for this user 
+								$user_id_ary = array_diff($user_id_ary, $cannot_read);   //remove id for this user
 								$message .=  sprintf($this->user->lang['PMAJAX_USER_REMOVED_NO_PERMISSION'] . '<br />', $username);
 							}
 						}
@@ -197,12 +197,12 @@ class newpmajax_handler
 		$group_list = $this->request->variable('group_list', array(0));
 		$this->group_list =  array();
 		#region AddGroups
-		
+
 		// Check mass pm to group permission
 		if (sizeof($group_list)  && (!$this->config['allow_mass_pm'] || !$this->auth->acl_get('u_masspm_group')))
 		{
-			 $message .=  $this->user->lang['NO_AUTH_GROUP_MESSAGE'] . '<br />';
-			 $group_list = array();
+			$message .=  $this->user->lang['NO_AUTH_GROUP_MESSAGE'] . '<br />';
+			$group_list = array();
 		}        
 		if (sizeof($group_list))
 		{
@@ -227,10 +227,10 @@ class newpmajax_handler
 				ORDER BY g.group_name ASC';
 
 			$result = $this->db->sql_query($sql);
-            while ($row = $this->db->sql_fetchrow($result))
+			while ($row = $this->db->sql_fetchrow($result))
 			{
 				$row['name'] = ($row['group_type'] == GROUP_SPECIAL) ? $this->user->lang['G_' . $row['name']] : $row['name'];
-				// Now, make sure that group not exist in address_list 
+				// Now, make sure that group not exist in address_list
 				if (isset($this->address_list['g'][$row['id']]))
 				{
 					$message .=  sprintf($this->user->lang['PMAJAX_GROUP_ALREADY_RECIPIENT'] . '<br />', $row['name']);
@@ -245,7 +245,7 @@ class newpmajax_handler
 
 		#endregion
 
-        #region Handle num recipients
+		#region Handle num recipients
 		$num_recipients = sizeof($this->user_list);
 
 		$pm_action	= $this->request->variable('action', '');
@@ -262,7 +262,7 @@ class newpmajax_handler
 			$result = $this->db->sql_query($sql);
 			$max_recipients = (int) $this->db->sql_fetchfield('max_recipients');
 			$this->db->sql_freeresult($result);
-			$max_recipients = (!$max_recipients) ? $this->config['pm_max_recipients'] : $max_recipients;  
+			$max_recipients = (!$max_recipients) ? $this->config['pm_max_recipients'] : $max_recipients;
 
 			// If this is a quote/reply "to all"... we may increase the max_recpients to the number of original recipients
 			if (($pm_action == 'reply' || $pm_action == 'quote') && $max_recipients && $reply_to_all)
@@ -277,7 +277,7 @@ class newpmajax_handler
 				$this->error[] = array('error' => $this->user->lang('PMAJAX_TOO_MANY_RECIPIENTS', $max_recipients));
 				return;
 			}
-	        // Check mass pm to users permission
+			// Check mass pm to users permission
 			if ((!$this->config['allow_mass_pm'] || !$this->auth->acl_get('u_masspm')) && $num_recipients + $num_recipients_exist > 1)
 			{
 				$this->error[] = array('error' => $this->user->lang('PMAJAX_TOO_MANY_RECIPIENTS', $max_recipients));
@@ -291,8 +291,8 @@ class newpmajax_handler
 
 		$type = ($add_to) ? 'to' : 'bcc';
 		//build output
-		$recipient_u = array();     
-		$recipient_g = array();     
+		$recipient_u = array();
+		$recipient_g = array();
 		foreach ($this->user_list as $user)
 		{
 			$view_path = get_username_string('profile', $user['user_id'], $user['username'], $user['colour']);
@@ -320,7 +320,7 @@ class newpmajax_handler
 			);
 			$recipient_g[] = $row;
 		}
-		 $this->return = array(
+		$this->return = array(
 			'RECIPIENT_U_LIST'		=> $recipient_u ,
 			'RECIPIENT_G_LIST'		=> $recipient_g ,
 			'NUM_RECIPIENTS'		=> sizeof($recipient_u) + sizeof($recipient_g),
@@ -351,7 +351,7 @@ class newpmajax_handler
 	}
 	private function get_user_list($username_ary, $user_type = false)
 	{
-	   $which_ary =  'username_ary';
+		$which_ary =  'username_ary';
 
 		if ($$which_ary && !is_array($$which_ary))
 		{
@@ -374,9 +374,9 @@ class newpmajax_handler
 			$user_info[] = $row;
 			$user_count ++;
 		}
-		$this->db->sql_freeresult($result);   
-		 // print_r($this->user_list);
-		 return $user_info;
+		$this->db->sql_freeresult($result);
+		// print_r($this->user_list);
+		return $user_info;
 
 		foreach($username_ary as $username)
 		{
@@ -384,7 +384,7 @@ class newpmajax_handler
 			$user_id = $user ? $user['user_id'] : -1;
 			$user_type = $user ? $user['user_type'] : -1;
 			$user_allow_pm = $user ? $user['user_allow_pm'] : -1;
-		  $this->user_list[] = $user;
+			$this->user_list[] = $user;
 		}
 	}
 	private function remove_user_from_user_list($user_id)
