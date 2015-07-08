@@ -17,7 +17,7 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 class listener implements EventSubscriberInterface
 {
 
-	public function __construct( \phpbb\template\template $template, \phpbb\user $user, $phpbb_root_path)
+	public function __construct(\phpbb\template\template $template, \phpbb\user $user, $phpbb_root_path)
 	{
 		$this->template = $template;
 		$this->user = $user;
