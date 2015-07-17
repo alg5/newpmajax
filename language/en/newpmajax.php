@@ -42,4 +42,3 @@ $lang = array_merge($lang, array(
 	'PMAJAX_USER_REMOVED_NO_PERMISSION'	=> 'User  %s couldn’t be added, as this user does not have permission to read private messages.',
 	'PMAJAX_USER_REMOVED_NO_PM'	            => 'User  %s couldn’t be added, as  this user have disabled private message receipt.',
 ));
-
