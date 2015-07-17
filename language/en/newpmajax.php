@@ -35,9 +35,11 @@ if (empty($lang) || !is_array($lang))
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
 
 $lang = array_merge($lang, array(
-	'PMAJAX_GROUP_ALREADY_RECIPIENT'		=> 'Group %s already exists in the recipient list',
-	'PMAJAX_TOO_MANY_RECIPIENTS'		=> 'You couldn’t exceed the maximum number (%d) of recipients',
-	'PMAJAX_USER_ALREADY_RECIPIENT'		=> 'User %s already exists in the recipient list',
-	'PMAJAX_USER_REMOVED_NO_PERMISSION'	=> 'User  %s couldn’t be added, as this user do not have permission to read private messages.',
-	'PMAJAX_USER_REMOVED_NO_PM'	=> 'User  %s couldn’t be added, as  this user do not have permission to read private messages.',
+	'PMAJAX_GROUP_ALREADY_RECIPIENT'		    => 'Group %s already exists in the recipient list',
+	'PMAJAX_NO_SUCH_USER'	                            => 'User %s not exists',
+	'PMAJAX_TOO_MANY_RECIPIENTS'		            => 'You couldn’t exceed the maximum number (%d) of recipients',
+	'PMAJAX_USER_ALREADY_RECIPIENT'		    => 'User %s already exists in the recipient list',
+	'PMAJAX_USER_REMOVED_NO_PERMISSION'	=> 'User  %s couldn’t be added, as this user does not have permission to read private messages.',
+	'PMAJAX_USER_REMOVED_NO_PM'	            => 'User  %s couldn’t be added, as  this user have disabled private message receipt.',
 ));
+

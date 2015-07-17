@@ -6,6 +6,7 @@ The extension makes it possible to add and remove recipients of PM without reloa
 
 Supported languages:
 - English
+- French
 - Russian
 
 ### License

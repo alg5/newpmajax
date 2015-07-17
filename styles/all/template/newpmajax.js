@@ -19,13 +19,13 @@
 
         $('#pmheader-postingbox').find('input[name=add_to]').on('click', function (e) {
             e.preventDefault();
-            var data_to_send = 'username_list=' + $('#username_list').val();
-            if ($('#group_list :selected').length > 0) {
-                data_to_send = data_to_send + '&' + $('#group_list ').serialize();
-            }
-            if ($('input[name^=address_list]').length > 0) {
-                data_to_send = data_to_send + '&' + $('input[name^=address_list]').serialize();
-            }
+//            var data_to_send = 'username_list=' + $('#username_list').val();
+//            if ($('#group_list :selected').length > 0) {
+//                data_to_send = data_to_send + '&' + $('#group_list ').serialize();
+//            }
+//            if ($('input[name^=address_list]').length > 0) {
+//                data_to_send = data_to_send + '&' + $('input[name^=address_list]').serialize();
+//            }
             data_to_send = $("#postform").serialize();
             var path = U_NEWPMAJAX_PATH + 'add_to';
             $.ajax({

@@ -106,7 +106,7 @@ class newpmajax_handler
 					{
 						if(!$this->is_user_exists($username, $this->user_list))
 						{
-							$message .=  sprintf($this->user->lang['NO_SUCH_USER'] . '<br />', $username);
+							$message .=  sprintf($this->user->lang['PMAJAX_NO_SUCH_USER'] . '<br />', $username);
 						}
 					}
 				}
