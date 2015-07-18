@@ -40,6 +40,7 @@ if (empty($lang) || !is_array($lang))
 
 $lang = array_merge($lang, array(
 	'PMAJAX_GROUP_ALREADY_RECIPIENT'		=> 'Le groupe %s  est déjà présent dans la liste des destinataires.',
+	'PMAJAX_NO_SUCH_USER'		=> 'L’utilisateur %s n’existe pas',
 	'PMAJAX_TOO_MANY_RECIPIENTS'		=> 'Vous ne pouvez pas dépasser le nombre maximum de destinataires, soit %d.',
 	'PMAJAX_USER_ALREADY_RECIPIENT'		=> 'L’utilisateur %s est déjà présent dans la liste des destinataires.',
 	'PMAJAX_USER_REMOVED_NO_PERMISSION'	=> 'L’utilisateur %s ne peut pas être ajouté à la liste des destinataires, puisqu’il n’est pas autorisé à lire ses messages privés.',
