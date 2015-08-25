@@ -27,8 +27,8 @@
         },
         "version-check": {
             "host": "alg5.github.io",
-            "directory": "/newpmajax",
-            "filename": "version.json"
+            "directory": "/version",
+            "filename": "newpmajax.json"
         }
     }
 }
