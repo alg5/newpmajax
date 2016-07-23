@@ -4,13 +4,13 @@
 * New Private Message With Ajax extension for the phpBB Forum Software package.
 * French translation by Galixte (http://www.galixte.com)
 *
-* @copyright (c) 2015 alg
+* @copyright (c) 2014 alg
 * @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */
 
 /**
-* DO NOT CHANGE
+* @ignore
 */
 if (!defined('IN_PHPBB'))
 {
@@ -33,15 +33,12 @@ if (empty($lang) || !is_array($lang))
 // You do not need this where single placeholders are used, e.g. 'Message %d' is fine
 // equally where a string contains only two placeholders which are used to wrap text
 // in a url you again do not need to specify an order e.g., 'Click %sHERE%s' is fine
-//
-// Some characters you may want to copy&paste:
-// ’ « » “ ” …
-//
 
 $lang = array_merge($lang, array(
-	'PMAJAX_GROUP_ALREADY_RECIPIENT'		=> 'Le groupe %s  est déjà présent dans la liste des destinataires.',
+	'PMAJAX_GROUP_ALREADY_RECIPIENT'	=> 'Le groupe %s  est déjà présent dans la liste des destinataires.',
+	'PMAJAX_NO_SUCH_USER'				=> 'User %s not exists',
 	'PMAJAX_TOO_MANY_RECIPIENTS'		=> 'Vous ne pouvez pas dépasser le nombre maximum de destinataires, soit %d.',
 	'PMAJAX_USER_ALREADY_RECIPIENT'		=> 'L’utilisateur %s est déjà présent dans la liste des destinataires.',
 	'PMAJAX_USER_REMOVED_NO_PERMISSION'	=> 'L’utilisateur %s ne peut pas être ajouté à la liste des destinataires, puisqu’il n’est pas autorisé à lire ses messages privés.',
-	'PMAJAX_USER_REMOVED_NO_PM'	=> 'L’utilisateur %s ne peut pas être ajouté à la liste des destinataires, puisqu’il n’est pas autorisé à lire ses messages privés.',
+	'PMAJAX_USER_REMOVED_NO_PM'			=> 'L’utilisateur %s ne peut pas être ajouté à la liste des destinataires, puisqu’il n’est pas autorisé à lire ses messages privés.',
 ));
