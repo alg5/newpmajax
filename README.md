@@ -1,8 +1,6 @@
-newpmajax
-==========
 
+[![Build Status](https://travis-ci.org/alg5/newpmajax.svg?branch=master)](https://travis-ci.org/alg5/newpmajax)<br />
 The extension makes it possible to add and remove recipients of PM without reloading the page
-[![Build Status](https://travis-ci.org/alg5/newpmajax.svg?branch=master)](https://travis-ci.org/alg5/newpmajax)
 
 Supported languages:
 - English

@@ -55,7 +55,7 @@ class newpmajax_handler
 		if (sizeof($this->error))
 		{
 			$return_error = array();
-			foreach($this->error as $cur_error)
+			foreach ($this->error as $cur_error)
 			{
 					// replace lang vars if possible
 					$return_error['ERROR'][] = (isset($this->user->lang[$cur_error['error']])) ? $this->user->lang[$cur_error['error']] : $cur_error['error'];
@@ -99,12 +99,12 @@ class newpmajax_handler
 				$user_id_ary = array();
 				user_get_id_name($user_id_ary, $usernames, array(USER_NORMAL, USER_FOUNDER, USER_INACTIVE));
 				$this->user_list = $this->get_user_list($usernames);
-				if(sizeof($this->user_list) < sizeof($usernames) )
+				if (sizeof($this->user_list) < sizeof($usernames) )
 				{
 					//find non-existing users
-					foreach($usernames as $username)
+					foreach ($usernames as $username)
 					{
-						if(!$this->is_user_exists($username, $this->user_list))
+						if (!$this->is_user_exists($username, $this->user_list))
 						{
 							$message .=  sprintf($this->user->lang['PMAJAX_NO_SUCH_USER'] . '<br />', $username);
 						}
@@ -251,7 +251,7 @@ class newpmajax_handler
 		$pm_action	= $this->request->variable('action', '');
 		$reply_to_all	= $this->request->variable('reply_to_all', 0);
 
-		if(sizeof($this->user_list) + sizeof($this->group_list))
+		if (sizeof($this->user_list) + sizeof($this->group_list))
 		{
 			// Get maximum number of allowed recipients
 			$sql = 'SELECT MAX(g.group_max_recipients) as max_recipients
@@ -378,7 +378,7 @@ class newpmajax_handler
 		// print_r($this->user_list);
 		return $user_info;
 
-		foreach($username_ary as $username)
+		foreach ($username_ary as $username)
 		{
 			$user = $this->is_user_exists($username, $user_info);
 			$user_id = $user ? $user['user_id'] : -1;

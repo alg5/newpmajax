@@ -5,7 +5,7 @@
 * French translation by Galixte (http://www.galixte.com)
 *
 * @copyright (c) 2015 alg
-* @license http://opensource.org/licenses/gpl-license.php GNU Public License 
+* @license http://opensource.org/licenses/gpl-license.php GNU Public License
 *
 */
 

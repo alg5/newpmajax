@@ -9,7 +9,6 @@
 
 namespace alg\newpmajax\migrations;
 
-
 class v_1_0_0 extends \phpbb\db\migration\migration
 {
 
