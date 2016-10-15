@@ -127,7 +127,7 @@ class newpmajax_handler
 		$usernames =  array();
 		$username_list = $this->request->variable('username_list', '', true);
 		$message = '';
-		
+
 		// AddUsers
 		if ($username_list)
 		{
@@ -236,7 +236,7 @@ class newpmajax_handler
 
 		$group_list = $this->request->variable('group_list', array(0));
 		$this->group_list =  array();
-		
+
 		// AddGroups
 		// Check mass pm to group permission
 		if (sizeof($group_list)  && (!$this->config['allow_mass_pm'] || !$this->auth->acl_get('u_masspm_group')))
