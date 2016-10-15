@@ -19,15 +19,8 @@
 
         $('#pmheader-postingbox').find('input[name=add_to]').on('click', function (e) {
             e.preventDefault();
-//            var data_to_send = 'username_list=' + $('#username_list').val();
-//            if ($('#group_list :selected').length > 0) {
-//                data_to_send = data_to_send + '&' + $('#group_list ').serialize();
-//            }
-//            if ($('input[name^=address_list]').length > 0) {
-//                data_to_send = data_to_send + '&' + $('input[name^=address_list]').serialize();
-//            }
             data_to_send = $("#postform").serialize();
-            var path = U_NEWPMAJAX_PATH + 'add_to';
+            var path = U_NEWPMAJAX_PATH_ADD_TO;
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -49,7 +42,7 @@
                 data_to_send = data_to_send + '&' + $('input[name^=address_list]').serialize();
             }
             data_send = $("#postform").serialize();
-            var path = U_NEWPMAJAX_PATH + 'add_bcc';
+            var path = U_NEWPMAJAX_PATH_ADD_BCC;
             $.ajax({
                 type: 'POST',
                 dataType: 'json',
@@ -90,7 +83,7 @@
             }
             var dl = '<dl>';
             dl = dl + '<dt>';
-            dl = dl + '<label>' + L_RECIPIENTS + ':</label>';
+            dl = dl + '<label>' + LA_RECIPIENTS + ':</label>';
             dl = dl + '</dt>';
             dl = dl + '<dd class="recipients">';
             dl = dl + '<ul class="recipients">';
@@ -145,7 +138,7 @@
                var div_bcc = '<div class="column2">';
                 var dl = '<dl>';
                 dl = dl + '<dt>';
-                dl = dl + '<label>' + L_BCC + ':</label>';
+                dl = dl + '<label>' + LA_BCC + ':</label>';
                 dl = dl + '</dt>';
                 dl = dl + '<dd class="recipients">';
                 dl = dl + '<ul class="recipients">';

@@ -11,20 +11,57 @@ namespace alg\newpmajax\controller;
 
 class newpmajax_handler
 {
-	protected $thankers = array();
-	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\auth\auth $auth, \phpbb\template\template $template, \phpbb\user $user, \phpbb\cache\driver\driver_interface $cache, $phpbb_root_path, $php_ext, \phpbb\request\request_interface $request, $table_prefix, $phpbb_container, \phpbb\pagination $pagination)
+	/** @var \phpbb\config\config */
+	protected $config;
+
+	/** @var \phpbb\db\driver\driver_interface */
+	protected $db;
+
+	/** @var \phpbb\auth\auth */
+	protected $auth;
+
+	/** @var \phpbb\user */
+	protected $user;
+
+	/** @var string phpbb_root_path */
+	protected $phpbb_root_path;
+
+	/** @var string phpEx */
+	protected $php_ext;
+
+	/** @var \phpbb\request\request */
+	protected $request;
+
+	/** @var array */
+	protected $return_error = array();
+
+	/** @var string */
+	protected $message = '';
+
+	/**
+	* Constructor
+	* @param \phpbb\config\config				$config				Config object
+	* @param \phpbb\db\driver\driver_interface	$db					DBAL object
+	* @param \phpbb\auth\auth					$auth				Auth object
+	* @param \phpbb\user						$user				User object
+	* @param string								$phpbb_root_path	phpbb_root_path
+	* @param string								$php_ext			phpEx
+	* @param \phpbb\request\request				$request			Request object
+
+	* @param array								$return_error		array
+	* @param string								$$message
+
+	* @access public
+	*/
+	public function __construct(\phpbb\config\config $config, \phpbb\db\driver\driver_interface $db, \phpbb\auth\auth $auth, \phpbb\user $user, $phpbb_root_path, $php_ext, \phpbb\request\request_interface $request)
 	{
 		$this->config = $config;
 		$this->db = $db;
 		$this->auth = $auth;
-		$this->template = $template;
 		$this->user = $user;
-		$this->cache = $cache;
 		$this->phpbb_root_path = $phpbb_root_path;
 		$this->php_ext = $php_ext;
 		$this->request = $request;
-		$this->phpbb_container = $phpbb_container;
-		$this->pagination =  $pagination;
 		$this->message = ''; // save warning in here
 		$this->return = array(); // save returned data in here
 		$this->error = array(); // save errors in here
@@ -71,8 +108,8 @@ class newpmajax_handler
 	}
 	private function add_sender($action)
 	{
-		include_once($this->phpbb_root_path . 'includes/ucp/ucp_pm_compose.' . $this->php_ext);
-		include_once($this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext);
+		//include_once($this->phpbb_root_path . 'includes/ucp/ucp_pm_compose.' . $this->php_ext);
+		//include_once($this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext);
 		$this->user->add_lang(array( 'viewtopic'));
 		$this->user->add_lang(array( 'ucp'));
 
@@ -84,19 +121,24 @@ class newpmajax_handler
 
 		add_form_key('ucp_pm_compose');
 		// Grab only parameters needed here
-		$this->address_list	= $this->request->variable('address_list', array('' => array(0 => '')));    //already exist recipients don't need to check permission
+		$this->address_list	= $this->request->variable('address_list', array('' => array(0 => '')));	//already exist recipients don't need to check permission
 		$this->user_list = array();
 
 		$usernames =  array();
 		$username_list = $this->request->variable('username_list', '', true);
 		$message = '';
-		#region AddUsers
+		
+		// AddUsers
 		if ($username_list)
 		{
 			$usernames =  array_unique(explode("\n", $username_list));
 			if (sizeof($usernames))
 			{
 				$user_id_ary = array();
+				if (!function_exists('user_get_id_name'))
+				{
+					include($this->phpbb_root_path . 'includes/functions_user.' . $this->php_ext);
+				}
 				user_get_id_name($user_id_ary, $usernames, array(USER_NORMAL, USER_FOUNDER, USER_INACTIVE));
 				$this->user_list = $this->get_user_list($usernames);
 				if (sizeof($this->user_list) < sizeof($usernames) )
@@ -115,11 +157,11 @@ class newpmajax_handler
 					// Now, make sure that new users not exist in address_list ;)
 					foreach ($this->user_list as $key => $user)
 					{
-						if (isset($this->address_list['u'][$user['user_id']]))
+						if (isset($this->address_list['u'][(int) $user['user_id']]))
 						{
 							//user already recipient (don't need add and check it)
 							$message .=  sprintf($this->user->lang['PMAJAX_USER_ALREADY_RECIPIENT'] . '<br />', $user['username']);
-							$user_id_ary = array_diff($user_id_ary, array($user['user_id']));   //remove ids of duplicate recipients
+							$user_id_ary = array_diff($user_id_ary, array((int) $user['user_id']));   //remove ids of duplicate recipients
 							unset($this->user_list[$key]);
 						}
 					}
@@ -154,7 +196,7 @@ class newpmajax_handler
 									$username = $this->remove_user_from_user_list($row['user_id']);
 									$message .=  sprintf($this->user->lang['PMAJAX_USER_REMOVED_NO_PERMISSION'] . '<br />', $username);
 								}
-								$user_id_ary = array_diff($user_id_ary, array($row['user_id']));   //remove id for this user
+								$user_id_ary = array_diff($user_id_ary, array((int) $row['user_id']));   //remove id for this user
 							}
 							$this->db->sql_freeresult($result);
 					}//sizeof($user_id_ary))
@@ -192,12 +234,10 @@ class newpmajax_handler
 			}
 		}
 
-		#endregion
-
 		$group_list = $this->request->variable('group_list', array(0));
 		$this->group_list =  array();
-		#region AddGroups
-
+		
+		// AddGroups
 		// Check mass pm to group permission
 		if (sizeof($group_list)  && (!$this->config['allow_mass_pm'] || !$this->auth->acl_get('u_masspm_group')))
 		{
@@ -231,7 +271,7 @@ class newpmajax_handler
 			{
 				$row['name'] = ($row['group_type'] == GROUP_SPECIAL) ? $this->user->lang['G_' . $row['name']] : $row['name'];
 				// Now, make sure that group not exist in address_list
-				if (isset($this->address_list['g'][$row['id']]))
+				if (isset($this->address_list['g'][(int) $row['id']]))
 				{
 					$message .=  sprintf($this->user->lang['PMAJAX_GROUP_ALREADY_RECIPIENT'] . '<br />', $row['name']);
 				}
@@ -243,9 +283,7 @@ class newpmajax_handler
 				$this->db->sql_freeresult($result);
 		}
 
-		#endregion
-
-		#region Handle num recipients
+		// Handle num recipients
 		$num_recipients = sizeof($this->user_list);
 
 		$pm_action	= $this->request->variable('action', '');
@@ -262,7 +300,7 @@ class newpmajax_handler
 			$result = $this->db->sql_query($sql);
 			$max_recipients = (int) $this->db->sql_fetchfield('max_recipients');
 			$this->db->sql_freeresult($result);
-			$max_recipients = (!$max_recipients) ? $this->config['pm_max_recipients'] : $max_recipients;
+			$max_recipients = (!$max_recipients) ? (int) $this->config['pm_max_recipients'] : $max_recipients;
 
 			// If this is a quote/reply "to all"... we may increase the max_recpients to the number of original recipients
 			if (($pm_action == 'reply' || $pm_action == 'quote') && $max_recipients && $reply_to_all)
@@ -284,7 +322,6 @@ class newpmajax_handler
 				return;
 			}
 		}
-		#endregion
 
 		$add_to = $action == "add_to" ? true : false;
 		$add_bcc	=  $action == "add_bcc" ? true : false;
@@ -295,12 +332,12 @@ class newpmajax_handler
 		$recipient_g = array();
 		foreach ($this->user_list as $user)
 		{
-			$view_path = get_username_string('profile', $user['user_id'], $user['username'], $user['colour']);
+			$view_path = get_username_string('profile', (int) $user['user_id'], $user['username'], $user['colour']);
 			$view_path = str_replace('../', '', $view_path);
-			$name_full = get_username_string('full', $user['user_id'], $user['username'], $user['colour']);
+			$name_full = get_username_string('full', (int) $user['user_id'], $user['username'], $user['colour']);
 			$name_full = str_replace('../', '', $name_full);
 			$row = array(
-				'UG_ID'		=> $user['user_id'],
+				'UG_ID'		=> (int) $user['user_id'],
 				'NAME'		=> $user['username'],
 				'COLOUR'	=> $user['colour'] ? '#' . $user['colour'] : '',
 				'NAME_FULL'		=> $name_full,
@@ -310,10 +347,10 @@ class newpmajax_handler
 		$recipient_g = array();
 		foreach ($this->group_list as $group)
 		{
-			$view_path = append_sid("{$this->phpbb_root_path}memberlist.$this->php_ext", 'mode=group&amp;g=' . $group['id']);
+			$view_path = append_sid("{$this->phpbb_root_path}memberlist.$this->php_ext", 'mode=group&amp;g=' . (int) $group['id']);
 			$view_path = str_replace('../', '', $view_path);
 			$row = array(
-				'UG_ID'		=> $group['id'],
+				'UG_ID'		=> (int) $group['id'],
 				'NAME'		=> $group['name'],
 				'COLOUR'	=> $group['colour'] ? '#' . $group['colour'] : '#0000FF',
 				'U_VIEW'		=>  $view_path,
@@ -327,17 +364,6 @@ class newpmajax_handler
 			'MESSAGE'		=> $message,
 		);
 	}
-	private function is_item_exists($item, $ids_ary)
-	{
-		foreach ($ids_ary as $id)
-		{
-			if ($id == $item)
-			{
-				return true;
-			}
-		}
-		return false;
-	}
 	private function is_user_exists($username, $user_info)
 	{
 		foreach ($user_info as $user)
@@ -349,7 +375,7 @@ class newpmajax_handler
 		}
 		return false;
 	}
-	private function get_user_list($username_ary, $user_type = false)
+	private function get_user_list($username_ary)
 	{
 		$which_ary =  'username_ary';
 
@@ -375,17 +401,7 @@ class newpmajax_handler
 			$user_count ++;
 		}
 		$this->db->sql_freeresult($result);
-		// print_r($this->user_list);
 		return $user_info;
-
-		foreach ($username_ary as $username)
-		{
-			$user = $this->is_user_exists($username, $user_info);
-			$user_id = $user ? $user['user_id'] : -1;
-			$user_type = $user ? $user['user_type'] : -1;
-			$user_allow_pm = $user ? $user['user_allow_pm'] : -1;
-			$this->user_list[] = $user;
-		}
 	}
 	private function remove_user_from_user_list($user_id)
 	{

@@ -5,6 +5,7 @@ services:
             - @template
             - @user
             - %core.root_path%
+            - @controller.helper
         tags:
             - { name: event.listener }
     alg.newpmajax.newpmajax_handler:
@@ -13,12 +14,7 @@ services:
             - @config
             - @dbal.conn
             - @auth
-            - @template
             - @user
-            - @cache.driver
             - %core.root_path%
             - %core.php_ext%
             - @request
-            - %core.table_prefix%
-            - @service_container
-            - @pagination

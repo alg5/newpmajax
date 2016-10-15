@@ -553,7 +553,6 @@ window.noty = function noty(options) {
         }
     }
 
-    // console.log(options);
     // End of the BC
 
     return jQuery.notyRenderer.init(options);
